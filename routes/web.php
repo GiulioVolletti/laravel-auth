@@ -34,7 +34,7 @@ Route::prefix('admin') //prefisso della rotta
     ->middleware('auth') // filtro per autenticazioni non si può cambiare
     ->name('admin.') //prefisso di tutti i nomi delle rotte
     ->group(function(){
-        Route::get('/', 'HomeController@index');
+        // Route::get('/', 'HomeController@index');
         Route::resource('posts', 'PostController');
     }
 );

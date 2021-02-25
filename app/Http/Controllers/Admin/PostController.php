@@ -76,9 +76,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        // dd($post);
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -88,9 +89,18 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,  Post $post)
     {
-        //
+        // dd($data = $request->all());
+        $data = $request->all();
+        $request->validate([
+            'title' => 'required|max:100',
+            'body' => 'required'
+        ]);
+            
+        $post->update($data);
+            
+        return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -99,8 +109,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        // dd($post);
+        $post->delete();
+        return redirect()->route('admin.posts.index');
     }
 }
