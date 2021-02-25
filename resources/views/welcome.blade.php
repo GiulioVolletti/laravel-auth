@@ -18,21 +18,29 @@
             @if (Route::has('login'))
                 <div >
                     @auth
+                        <a class="btn  btn btn-primary" href="{{route('posts.index')}}">BLOG</a>
+
                         <a class="btn btn-primary my-5" href="{{ url('/home') }}">Home</a>
                     @else
                         <a class="btn btn-primary my-5" href="{{ route('login') }}">Login</a>
-
+                        
                         @if (Route::has('register'))
-                            <a  class="btn btn-primary my-5" href="{{ route('register') }}">Register</a>
+                         <a  class="btn btn-primary my-5" href="{{ route('register') }}">Register</a>
                         @endif
+                        <a class="btn float-right my-5 btn btn-primary" href="{{route('posts.index')}}">BLOG</a>
                     @endauth
                 </div>
             @endif
+            
+                
+          
 
             <div class="container">
                 <div class=" row " >
                     <h1 class="display-1 mx-auto text-justify " >Bloglavel</h1>
+                    
                 </div>
+              
                 
 
                 
