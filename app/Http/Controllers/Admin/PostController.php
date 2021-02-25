@@ -16,8 +16,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $posts = Post::all();
+    {   
+        //$posts = Post::all(); all result show
+        $posts = Post::where('user_id', Auth::id())->get();
         return view('admin.posts.index', compact('posts'));
     }
 
