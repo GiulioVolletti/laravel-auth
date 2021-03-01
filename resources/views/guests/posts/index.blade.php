@@ -11,7 +11,13 @@
           <small>{{$post->user->name}}</small>
         </div>
         <div class="card-body">
-          <img class="img-fluid" src="{{asset('storage/'.$post->image)}}" alt="{{$post->title}}">
+          @if ($post->image)
+            <img class="img-fluid" src="{{asset('storage/'.$post->image)}}" alt="{{$post->title}}">
+                            
+          @else
+            <img class="img-fluid" src="{{asset('storage/images/placeolder.png')}}" alt="placeholder">
+              
+          @endif
           <hr>
           {{$post->body}}
         </div>
