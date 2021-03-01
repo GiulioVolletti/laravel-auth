@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 use App\Post;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
+
+//mail
+use App\Mail\PostMail;
+use Illuminate\Support\Facades\Mail;
+
 
 class PostController extends Controller
 {
@@ -44,10 +51,16 @@ class PostController extends Controller
         $data = $request->all();
         $request->validate([
             'title' => 'required|max:100',
-            'body' => 'required'
+            'body' => 'required',
+            'image' => 'required|mimes:png,gif,jpeg,jpg',
+            
         ]);
         // dd($data );
         $addPost = new Post();
+
+        if(!empty($data['image'])){
+            $data['image'] = Storage::disk('public')->put('images', $data['image']);
+        }
 
         //slug
         $data["slug"] = Str::slug($data["title"]);
@@ -55,6 +68,9 @@ class PostController extends Controller
         $data["user_id"] = Auth::id() ;
         $addPost->fill($data);
         $addPost->save();
+
+        //mail
+        Mail::to('pincopallo@hotmail.it')->send(new PostMail($addPost));
 
         return redirect()->route('admin.posts.index');
     }
@@ -95,7 +111,8 @@ class PostController extends Controller
         $data = $request->all();
         $request->validate([
             'title' => 'required|max:100',
-            'body' => 'required'
+            'body' => 'required',
+            'image' => 'required|image'
         ]);
             
         $post->update($data);

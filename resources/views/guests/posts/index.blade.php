@@ -11,6 +11,8 @@
           <small>{{$post->user->name}}</small>
         </div>
         <div class="card-body">
+          <img class="img-fluid" src="{{asset('storage/'.$post->image)}}" alt="{{$post->title}}">
+          <hr>
           {{$post->body}}
         </div>
       </div>
